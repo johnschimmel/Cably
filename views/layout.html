@@ -1,0 +1,27 @@
+<html>
+  
+  <head>
+    <title>
+      <% if (typeof pageTitle !="undefined" ) { %>
+        <%= pageTitle %>
+          <% } else { %>
+            Cably
+            <% } %>
+    </title>
+    <link rel="stylesheet" type='text/css' href="css/bootstrap.css">
+    <link rel="stylesheet" type='text/css' href="css/custom.css">
+  </head>
+  
+  <body>
+    <div class="span16">
+      <% if (typeof pageTitle !="undefined" ) { %>
+        <h1>
+          <%= pageTitle %>
+        </h1>
+        <% } %>
+          <br/>
+          <%- body %>
+    </div>
+  </body>
+
+</html>
