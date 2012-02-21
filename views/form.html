@@ -1,30 +1,35 @@
-<form id="rating" method="POST" action="/form/">
-  <legend>
-    Rate the Driver
-  </legend>
-  <fieldset id="inputs">
-    <p>
-      <input type="text" id="firstname" name="firstname" placeholder="Driver First Name">
-    </p>
-    <p>
-      <input type="text" id="lastname" name="lastname" placeholder="Driver Last Name">
-    </p>
-    <p>
-      <input type="text" id="medallion" name="medallion" placeholder="Medallion #">
-    </p>
-    <p>
-      <label>
-        Trip Rating
-      </label>
+<!doctype html>
+
+<html>
+  <form id="rating" method="POST" action="/form/">
+    <legend>
+      Rate the Driver
+    </legend>
+    <fieldset id="inputs">
       <p>
-        <input type="number" id="taxi" name="taxi" value="3" min="0" max="5">
+        <input type="text" id="firstname" name="firstname" placeholder="Driver First Name">
       </p>
       <p>
-        <input type="text" id="comment" name="comment" placeholder="additional comments">
+        <input type="text" id="lastname" name="lastname" placeholder="Driver Last Name">
       </p>
-  </fieldset>
-  <fieldset id="actions">
-    <input type="submit" class="btn" value="Submit" />
-  </fieldset>
-</form>
-</div>
+      <p>
+        <input type="text" id="medallion" name="medallion" placeholder="Medallion #">
+      </p>
+      <p>
+        <label>
+          Trip Rating
+        </label>
+        <p>
+          <input type="number" id="taxi" name="taxi" value="3" min="0" max="5">
+        </p>
+        <p>
+          <input type="text" id="comment" name="comment" placeholder="additional comments">
+        </p>
+    </fieldset>
+    <fieldset id="actions">
+      <input type="submit" class="btn" value="Submit" />
+    </fieldset>
+  </form>
+  </div>
+
+</html>

@@ -92,8 +92,8 @@ app.get('/driver/:driverNumber', function(request, response){
         response.render("display.html", driverData);
         
     } else {
-        // card not found. show the 'Card not found' template
-        response.render("card_not_found.html", templateData);
+        // driver not found
+        response.render("driver-not-found.html", templateData);
         
     }
 });
