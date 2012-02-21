@@ -37,25 +37,30 @@ app.configure(function() {
 
 });
 /*********** END SERVER CONFIGURATION *****************/
+//h1 passed in through layout.html
+var templateData = {
+        pageTitle : "Cably",
+    }
 
-
-// this array will hold card data from forms
+// this array will hold driver data from forms
 driverArray = []; 
 
-//main page - display the card form
+//your about page
 app.get('/', function(request, response) {
-    var templateData = { 
-        pageTitle : 'Cably'
-        
-    };
-    
+    response.render("cably-home.html", templateData);
+});
+
+//display the driver form
+app.get('/form/', function(request, response) {
+    console.log("this is the form submission page");
     response.render("form.html", templateData);
 });
 
-app.post('/', function(request, response){
+
+app.post('/form/', function(request, response){
     console.log("Inside app.post('/')");
     console.log("form received and includes")
-    console.log(request.body);
+    console.log(request.body, templateData);
     
     // Simple data object to hold the form data
     var newDriver = {
@@ -75,10 +80,10 @@ app.post('/', function(request, response){
     response.redirect('/driver/' + driverNumber);
 });
 
-//display a specfic card
-app.get('/driver/:driverNumber', function(request, response){
+//display a specfic driver
+app.get('/driver/:driverNumber', function(request, response){   
 
-    // Get the card from cardArray
+    // Get the driver from driverData
     driverData = driverArray[request.params.driverNumber] //cardData contains 'to', 'from', 'message', 'image'
     
     if (driverData != undefined) {
@@ -88,10 +93,9 @@ app.get('/driver/:driverNumber', function(request, response){
         
     } else {
         // card not found. show the 'Card not found' template
-        response.render("card_not_found.html");
+        response.render("card_not_found.html", templateData);
         
     }
-    
 });
 
 
