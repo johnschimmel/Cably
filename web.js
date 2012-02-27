@@ -1,6 +1,11 @@
 var express = require('express');
 var ejs = require('ejs'); //embedded JS template engine
+
 var app = express.createServer(express.logger());
+
+var mongoose = require('mogoose'); //include mongoose
+
+var schema = mongoose.Schema //MongoDB library
 
 /*********** SERVER CONFIGURATION *****************/
 app.configure(function() {
@@ -37,6 +42,19 @@ app.configure(function() {
 
 });
 /*********** END SERVER CONFIGURATION *****************/
+
+/************ DATABASE CONFIGURATION **********/
+app.db = mongoose.connect(process.env.MONGOLAB_URI); //connect to MongoLabs database - local server uses .envfile
+
+//include the database model / schema
+require('./models').configureSchema(schema, mongoose);
+
+//define your DB Model variables
+var Driver = mongoose.model('Driver');
+/************* END DATABASE CONFIGURATION *********/
+
+/*********** PAGES LAYOUT *****************/
+
 //h1 passed in through layout.html
 var templateData = {
         pageTitle : "Cably",
@@ -56,7 +74,6 @@ app.get('/form/', function(request, response) {
     response.render("form.html", templateData);
 });
 
-
 app.post('/form/', function(request, response){
     console.log("Inside app.post('/')");
     console.log("form received and includes")
@@ -64,9 +81,9 @@ app.post('/form/', function(request, response){
     
     // Simple data object to hold the form data
     var newDriver = {
-        firstname : request.body.firstname,
-        lastname : request.body.lastname,
-        medallion : request.body.medallion,
+        firstName : request.body.firstName,
+        lastName : request.body.lastName,
+        driverID : request.body.driverID,
         taxi : request.body.taxi
         
     };
@@ -84,7 +101,7 @@ app.post('/form/', function(request, response){
 app.get('/driver/:driverNumber', function(request, response){   
 
     // Get the driver from driverData
-    driverData = driverArray[request.params.driverNumber] //cardData contains 'to', 'from', 'message', 'image'
+    driverData = driverArray[request.params.driverNumber] 
     
     if (driverData != undefined) {
         
@@ -97,6 +114,8 @@ app.get('/driver/:driverNumber', function(request, response){
         
     }
 });
+/*********** END PAGES LAYOUT *****************/
+
 
 
 // Make server turn on and listen at defined PORT (or port 3000 if is not defined)
