@@ -1,8 +1,8 @@
 #Directories
 node_modules
+reference
 
 #Files
 .env
 .DS_Store
 issues.txt
-webjs - in progress.js

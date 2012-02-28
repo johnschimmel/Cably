@@ -56,9 +56,9 @@ app.configure(function() {
 });
 /*********** END SERVER CONFIGURATION *****************/
 
-/*********** PAGES LAYOUT *****************/
+/*********** POST/GET CONFIGURATION *****************/
 
-//h1 passed in through layout.html
+//pageTitle data passed in through layout.html
 var templateData = {
         pageTitle : "Cably",
     }
@@ -73,43 +73,54 @@ app.get('/', function(request, response) {
 
 //display the driver form
 app.get('/form/', function(request, response) {
-    console.log("this is the form submission page");
+    console.log("This is the form submission page.");
     response.render("form.html", templateData);
 });
 
+//a user submitted driver data. It is POST'd to the server
 app.post('/form/', function(request, response){
-    console.log("Inside app.post('/')");
-    console.log("form received and includes")
+    console.log("Inside app.post('/form')");
+    console.log("form received and includes:")
     console.log(request.body, templateData);
     
-    // Simple data object to hold the form data
-    var newDriver = {
+    //prepare the submitted driver data from the form into a data object
+    var driverDataObj = {
         firstName : request.body.firstName,
         lastName : request.body.lastName,
         driverID : request.body.driverID,
         ratingNumber : request.body.ratingNumber,
-        comment : request.body.comment
-        
+        comment : request.body.comment    
     };
     
-    // Put this newDriver object into the driverArray
-    driverArray.push(newDriver);
-    
-    // Get the position of the driver in the driverArray
-    driverNumber = driverArray.length - 1;
-    
-    response.redirect('/driver/' + driverNumber);
+    //create a new driver record
+    //Driver is a Mongoose data model and defined at the top of web.js
+    //Driver can accept a data object that is defined in model.js
+    var driverPost = new Driver(driverDataObj);
+
+    //save the driver data object
+    driverPost.save();
+    console.log("driverDataObj is saved.")
+
+    //redirect to show the single driver record
+    response.redirect('/driver/' + driverDataObj)
 });
 
 //display a specfic driver
 app.get('/driver/:driverNumber', function(request, response){   
+    console.log("Inside app.get('/driver')");
 
-    // Get the driver from driverData
-    driverData = driverArray[request.params.driverNumber] 
+    //get the driver from driverData
+    Driver.findOne(/driver/)
     
-    if (driverData != undefined) {
-        
-        // Render the display template - pass in the driverData
+    if (err) {
+        console.log('error');
+        console.log(err);
+        response.send("this driver cannot be found!");
+    }
+
+    
+
+        //render the display template - pass in the driverData
         response.render("display.html", driverData);
         
     } else {
@@ -118,7 +129,7 @@ app.get('/driver/:driverNumber', function(request, response){
         
     }
 });
-/*********** END PAGES LAYOUT *****************/
+/*********** END POST/GET CONFIGURATION *****************/
 
 // Make server turn on and listen at defined PORT (or port 3000 if is not defined)
 var port = process.env.PORT || 4000;
