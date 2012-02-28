@@ -3,7 +3,7 @@ var ejs = require('ejs'); //embedded JS template engine
 
 var app = express.createServer(express.logger());
 
-var mongoose = require('mogoose'); //include mongoose
+var mongoose = require('mongoose'); //include mongoose
 
 var schema = mongoose.Schema //MongoDB library
 
@@ -88,10 +88,10 @@ app.post('/form/', function(request, response){
         
     };
     
-    // Put this newCard object into the cardArray
+    // Put this newDriver object into the driverArray
     driverArray.push(newDriver);
     
-    // Get the position of the card in the cardArray
+    // Get the position of the driver in the driverArray
     driverNumber = driverArray.length - 1;
     
     response.redirect('/driver/' + driverNumber);
@@ -105,7 +105,7 @@ app.get('/driver/:driverNumber', function(request, response){
     
     if (driverData != undefined) {
         
-        // Render the card_display template - pass in the cardData
+        // Render the display template - pass in the driverData
         response.render("display.html", driverData);
         
     } else {
@@ -115,8 +115,6 @@ app.get('/driver/:driverNumber', function(request, response){
     }
 });
 /*********** END PAGES LAYOUT *****************/
-
-
 
 // Make server turn on and listen at defined PORT (or port 3000 if is not defined)
 var port = process.env.PORT || 4000;
