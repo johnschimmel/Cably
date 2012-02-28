@@ -9,7 +9,7 @@ module.exports.configureSchema = function(Schema, mongoose) {
         medallionNum : String,
         ratingNumber : String,  
         date      : { type: Date, default: Date.now },
-        //comments  : [Comments]
+        comment  : String
     });
 
     // add schemas to Mongoose

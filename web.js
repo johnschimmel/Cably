@@ -63,9 +63,6 @@ var templateData = {
         pageTitle : "Cably",
     }
 
-// this array will hold driver data from forms
-driverArray = []; 
-
 //your about page
 app.get('/', function(request, response) {
     response.render("cably-home.html", templateData);
@@ -89,7 +86,7 @@ app.post('/form/', function(request, response){
         lastName : request.body.lastName,
         driverID : request.body.driverID,
         ratingNumber : request.body.ratingNumber,
-        comment : request.body.comment    
+        comment : request.body.comment
     };
     
     //create a new driver record
@@ -102,37 +99,53 @@ app.post('/form/', function(request, response){
     console.log("driverDataObj is saved.")
 
     //redirect to show the single driver record
-    response.redirect('/driver/' + driverDataObj)
+    response.redirect('/driver/' + driverPost.driverID)
 });
 
 //display a specfic driver
-app.get('/driver/:driverNumber', function(request, response){   
+app.get('/driver/:driverID', function(request, response){   
     console.log("Inside app.get('/driver')");
 
-    //get the driver from driverData
-    Driver.findOne(/driver/)
+    //get the driver from driverDataObj
+    //request.params - in url, the part after driver (this is pulling :driverID)
+    //driverInformation will return what is found
+    Driver.findOne({driverID : request.params.driverID}, function(err, driverInformation) {
     
-    if (err) {
-        console.log('error');
-        console.log(err);
-        response.send("this driver cannot be found!");
-    }
+        if (err) {
+            console.log('there was an error.');
+            console.log(err);
 
-    
+            //display error message to user
+            response.send("there was an error retrieving this driver's info.");
+        }
 
-        //render the display template - pass in the driverData
-        response.render("display.html", driverData);
-        
-    } else {
-        // driver not found
-        response.render("driver-not-found.html", templateData);
-        
-    }
+        if (driverInformation == null) {
+            console.log('driver not found.');
+            
+        } else {
+            // query was successful
+            console.log('printing this drivers information.');
+            console.log(driverInformation);
+
+            templateData = {
+                firstName       : driverInformation.firstName,
+                lastName        : driverInformation.lastName,
+                driverID        : driverInformation.driverID,
+                ratingNumber    : driverInformation.ratingNumber,
+                comment         : driverInformation.comment
+            };
+
+            response.render("display.html", templateData);
+            
+        }
+    });
 });
 /*********** END POST/GET CONFIGURATION *****************/
 
+/*********** PORT CONFIGURATION *****************/
 // Make server turn on and listen at defined PORT (or port 3000 if is not defined)
 var port = process.env.PORT || 4000;
 app.listen(port, function() {
   console.log("Listening on " + port);
 });
+/*********** END PORT CONFIGURATION *****************/
