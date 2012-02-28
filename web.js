@@ -44,6 +44,7 @@ app.configure(function() {
 /*********** END SERVER CONFIGURATION *****************/
 
 /************ DATABASE CONFIGURATION **********/
+console.log("console.log: server config fired")
 app.db = mongoose.connect(process.env.MONGOLAB_URI); //connect to MongoLabs database - local server uses .envfile
 
 //include the database model / schema
