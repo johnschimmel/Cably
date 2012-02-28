@@ -44,8 +44,10 @@ app.configure(function() {
 /*********** END SERVER CONFIGURATION *****************/
 
 /************ DATABASE CONFIGURATION **********/
-console.log("console.log: server config fired")
-app.db = mongoose.connect(process.env.MONGOLAB_URI); //connect to MongoLabs database - local server uses .envfile
+console.log("console.log: server config fired");
+//console.log(mongoose);
+console.log(process.env.MONGOLAB_URI)
+//app.db = mongoose.connect(process.env.MONGOLAB_URI); //connect to MongoLabs database - local server uses .env file
 
 //include the database model / schema
 require('./models').configureSchema(schema, mongoose);
@@ -85,7 +87,8 @@ app.post('/form/', function(request, response){
         firstName : request.body.firstName,
         lastName : request.body.lastName,
         driverID : request.body.driverID,
-        taxi : request.body.taxi
+        ratingNumber : request.body.ratingNumber,
+        comment : request.body.comment
         
     };
     
