@@ -7,6 +7,19 @@ var mongoose = require('mongoose'); //include mongoose
 
 var schema = mongoose.Schema //MongoDB library
 
+/************ DATABASE CONFIGURATION **********/
+//console.log('console.log: server config fired');
+//console.log(mongoose);
+//console.log(process.env.MONGOLAB_URI)
+app.db = mongoose.connect(process.env.MONGOLAB_URI); //connect to MongoLabs database - local server uses .env file
+
+//include the database model / schema
+require('./models').configureSchema(schema, mongoose);
+
+//define your DB Model variables
+var Driver = mongoose.model('Driver');
+/************* END DATABASE CONFIGURATION *********/
+
 /*********** SERVER CONFIGURATION *****************/
 app.configure(function() {
     
@@ -42,19 +55,6 @@ app.configure(function() {
 
 });
 /*********** END SERVER CONFIGURATION *****************/
-
-/************ DATABASE CONFIGURATION **********/
-console.log("console.log: server config fired");
-//console.log(mongoose);
-console.log(process.env.MONGOLAB_URI)
-app.db = mongoose.connect(process.env.MONGOLAB_URI); //connect to MongoLabs database - local server uses .env file
-
-//include the database model / schema
-require('./models').configureSchema(schema, mongoose);
-
-//define your DB Model variables
-var Driver = mongoose.model('Driver');
-/************* END DATABASE CONFIGURATION *********/
 
 /*********** PAGES LAYOUT *****************/
 
