@@ -1,20 +1,34 @@
 <!doctype html>
-
 <html>
-
-<body>
-	<h2>Driver Information</h2>
-  <form method="POST" action="/form/">
-    <p>
-      <ul>
-        <li><%=firstName %></li>
-        <li><%=lastName %></li>
-        <li><%=driverID %></li>
-        <li><%=ratingNumber %></li>
-        <li><%=comment %></li>
-      </ul>
-    </p>
-  </form>
-</body>
+  
+  <body>
+    <h1 class="page-header">
+      Cab.ly
+    </h1>
+    <h2>
+      Driver Information
+    </h2>
+    <form method="POST" action="/form/">
+      <p>
+        <ul>
+          <li>
+            <%=firstName %>
+          </li>
+          <li>
+            <%=lastName %>
+          </li>
+          <li>
+            <%=driverID %>
+          </li>
+          <li>
+            <%=ratingNumber %>
+          </li>
+          <li>
+            <%=comment %>
+          </li>
+        </ul>
+      </p>
+    </form>
+  </body>
 
 </html>

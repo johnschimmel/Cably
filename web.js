@@ -65,6 +65,7 @@ var templateData = {
 
 //your about page
 app.get('/', function(request, response) {
+    console.log("The about page is loaded.");
     response.render("cably-home.html", templateData);
 });
 
