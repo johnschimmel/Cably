@@ -107,7 +107,7 @@ app.get('/driver/:driverID', function(request, response){
     console.log("Inside app.get('/driver')");
 
     //get the driver from driverDataObj
-    //request.params - in url, the part after driver (this is pulling :driverID)
+    //request.params - in url, the part after driver in /driver/:driverID (this is pulling :driverID)
     //driverInformation will return what is found
     Driver.findOne({driverID : request.params.driverID}, function(err, driverInformation) {
     

@@ -1,14 +1,20 @@
 <!doctype html>
 
 <html>
+
+<body>
+	<h2>Driver Information</h2>
   <form method="POST" action="/form/">
     <p>
-      <%=firstName %>
-      <%=lastName %>
-      <%=driverID %>
-      <%=ratingNumber %>
-      <%=comment %>
+      <ul>
+        <li><%=firstName %></li>
+        <li><%=lastName %></li>
+        <li><%=driverID %></li>
+        <li><%=ratingNumber %></li>
+        <li><%=comment %></li>
+      </ul>
     </p>
   </form>
+</body>
 
 </html>
