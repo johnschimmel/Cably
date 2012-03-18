@@ -124,16 +124,16 @@ app.get('/driver/:driverID', function(request, response){
             console.log('driver not found.');
             
         } else {
-            // query was successful
+            // search was successful
             console.log('printing this drivers information.');
             console.log(driverInformation);
 
             templateData = {
-                firstName       : driverInformation.firstName,
-                lastName        : driverInformation.lastName,
-                driverID        : driverInformation.driverID,
-                ratingNumber    : driverInformation.ratingNumber,
-                comment         : driverInformation.comment
+                firstName       : driverInformation.firstName
+            ,   lastName        : driverInformation.lastName
+            ,   driverID        : driverInformation.driverID
+            ,   ratingNumber    : driverInformation.ratingNumber
+            ,   comment         : driverInformation.comment
             };
 
             response.render("display.html", templateData);
@@ -141,6 +141,29 @@ app.get('/driver/:driverID', function(request, response){
         }
     });
 });
+
+//display all drivers
+app.get('/alldrivers', function(request, response){
+    //build the query
+    var query = Driver.find({});
+    query.sort('driverID', -1);
+
+    //run the query and run display.html
+    query.exec({}, function(err, allDrivers){
+        if (err) {
+            console.log('there was an error.');
+            console.log(err);
+        } else {
+        //prepare template data
+            templateData = {
+                drivers : allDrivers
+            };
+        //render display.html
+        response.render("display.html", templateData);
+        }
+    });
+});
+
 /*********** END POST/GET CONFIGURATION *****************/
 
 /*********** PORT CONFIGURATION *****************/
